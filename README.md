@@ -358,4 +358,9 @@ Wrote to /home/ray/Projects/nodejs/Nodejs從零開發WebServer博客項目/commo
 }
 ```
 
+安裝 lodash 
+
+``` bash
+$ npm i lodash --save
+```
 
