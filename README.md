@@ -212,4 +212,150 @@ v18.16.1
 
 - 無論用哪種方式,必須安裝好 node, 版本要 >= 8.0
 
+# 2.2 nodejs 介紹 | nodejs和js的區別
+
+## nodejs和js的區別
+
+- ECMAScript
+
+- javascript
+
+- nodejs
+
+### ECMAScript
+
+- 定義了語法,寫 javascript 和 nodejs 都必須遵守
+
+- 變量定義, 循環, 判斷, 函數
+
+- 原型和原型鍊, 作用域和閉包, 異步
+
+- 具體內容可參考 http://es6.ruanyifeng.com/ 阮一峰 的 ECMAScript 6 入門
+
+- 不能操作 DOM,不能監聽 click 事件,不能發送 ajax 請求
+
+- 不能處理 http 請求, 不能操作文件
+
+- 即 ,只有ECMAScript, 幾乎做不了任何實際的項目
+
+### javascript
+
+- 使用 ECMAScript 語法規範, 外加 Web API, 缺一不可
+
+- DOM操作, BOM操作, 事件綁定, Ajax 等
+
+- 兩者結合, 即可完成瀏覽器端的任何操作
+
+### nodejs
+
+- 使用 ECMAScript 語法規範,外加 nodejs API, 缺一不可
+
+- 處理 http, 處理文件等, 具體參考 http://nodejs.cn/api/
+
+- 兩者結合, 即可完成 server 端的任何操作
+
+## 總結
+
+- ECMAScript 是語法規範
+
+- nodejs = ECMAScript + nodejs API
+
+## 補充
+
+- commonjs 模塊化
+
+- nodejs debugger
+
+# 2.3 nodejs 介绍 | commonjs 演示
+
+``` bash
+$ mkdir commonjs-test
+$ cd commonjs-test
+$ ll
+total 16
+drwxrwxr-x 2 ray ray 4096 Jul 12 22:59 ./
+drwxrwxr-x 4 ray ray 4096 Jul 12 22:58 ../
+-rw-r--r-- 1 ray ray    0 Jul 12 22:59 a.js
+-rw-r--r-- 1 ray ray    0 Jul 12 22:59 b.js
+```
+
+``` a.js
+function add(a, b) {
+    return a + b
+}
+
+module.exports = add
+```
+
+``` b.js
+const add = require('./a') 
+const sum = add(10, 20)
+console.log(sum)
+```
+
+``` bash
+$ node b.js
+30
+```
+
+``` a.js
+function add(a, b) {
+    return a + b
+}
+
+function mul(a, b) {
+    return a * b
+}
+
+module.exports = {
+    add,
+    mul
+}
+```
+
+``` b.js
+const { add, mul } = require('./a') 
+const sum = add(10, 20)
+const result = mul(100, 200)
+
+console.log(sum)
+console.log(result)
+```
+
+``` bash
+$ node b.js
+30
+20000
+```
+
+``` js
+const { add, mul } = require('./a')
+```
+
+上面的寫法,完全等同於下面的寫法
+
+``` js
+const opts = require('./a')
+const add = opts.add
+const mul = opts.mul
+```
+
+``` bash
+$ npm init -y
+Wrote to /home/ray/Projects/nodejs/Nodejs從零開發WebServer博客項目/commonjs-test/package.json:
+
+{
+  "name": "commonjs-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "a.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
 
