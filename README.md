@@ -420,3 +420,26 @@ Wrote to /home/ray/Projects/nodejs/Nodejs從零開發WebServer博客項目/debug
 
 將 `index.js` 改名為 `app.js`, `package.json` 內 main 的檔名要和外部的檔名一致
 
+``` js app.js
+console.log(100)
+console.log(200)
+console.log(300)
+console.log(400)
+console.log(500)
+console.log(600)
+```
+
+改成比較複雜的例子
+
+``` js app.js
+const http = require('http')
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200, {'content-type': 'text/html'})
+    res.end('<h1>Hello World</h1>')
+})
+
+server.listen(3000, ()=> {
+    console.log('listening on port 3000')
+})
+```
