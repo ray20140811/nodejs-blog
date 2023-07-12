@@ -279,7 +279,7 @@ drwxrwxr-x 4 ray ray 4096 Jul 12 22:58 ../
 -rw-r--r-- 1 ray ray    0 Jul 12 22:59 b.js
 ```
 
-``` a.js
+``` js a.js
 function add(a, b) {
     return a + b
 }
@@ -287,7 +287,7 @@ function add(a, b) {
 module.exports = add
 ```
 
-``` b.js
+``` js b.js
 const add = require('./a') 
 const sum = add(10, 20)
 console.log(sum)
@@ -298,7 +298,7 @@ $ node b.js
 30
 ```
 
-``` a.js
+``` js a.js
 function add(a, b) {
     return a + b
 }
@@ -313,7 +313,7 @@ module.exports = {
 }
 ```
 
-``` b.js
+``` js b.js
 const { add, mul } = require('./a') 
 const sum = add(10, 20)
 const result = mul(100, 200)
@@ -363,4 +363,37 @@ Wrote to /home/ray/Projects/nodejs/Nodejs從零開發WebServer博客項目/commo
 ``` bash
 $ npm i lodash --save
 ```
+
+ 原使用淘寶鏡像安裝, 現已改名為 https://npmmirror.com/ 
+
+``` bash
+$ npm i lodash --save --registry=https://registry.npm.taobao.org
+```
+
+``` bash
+$ npm i lodash --save --registry=https://registry.npmmirror.com
+```
+
+修改 `b.js`
+``` js b.js
+const { add, mul } = require('./a')
+const _ = require('lodash')
+
+const sum = add(10, 20)
+const result = mul(100, 200)
+
+console.log(sum)
+console.log(result)
+
+const arr = _.concat([1, 2], 3)
+console.log('arr...', arr)
+```
+
+``` bash
+$ node b.js
+30
+20000
+arr... [1, 2, 3]
+```
+
 
