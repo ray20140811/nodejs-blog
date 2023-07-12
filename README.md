@@ -396,4 +396,27 @@ $ node b.js
 arr... [1, 2, 3]
 ```
 
+# 2.4 nodejs 介绍 | debugger
+
+``` bash
+$ mkdir debugger-test
+$ cd debugger-test
+$ npm init -y
+Wrote to /home/ray/Projects/nodejs/Nodejs從零開發WebServer博客項目/debugger-test/package.json:
+
+{
+  "name": "debugger-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+將 `index.js` 改名為 `app.js`, `package.json` 內 main 的檔名要和外部的檔名一致
 
