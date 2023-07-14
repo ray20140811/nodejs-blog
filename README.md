@@ -7,7 +7,7 @@
 - 運行在服務器,做為 web server
 
 - 運行在本地,做為打包，構建工具
-  
+
 ## 學習 Nodejs 的困惑
 
 - Nodejs 運行在服務端, 而非瀏覽器環境
@@ -63,36 +63,36 @@
 - 課程準備
 
   - nodejs下載安裝,nodejs和javascript的區別
-  
+
   - 服務端的特點, 服務端和前端的區別
-  
+
   - 博客項目的需求分析和技術方案設計
- 
+
 
 - 使用原生代碼開發案例項目
-  
+
   - 實現API和數據存儲, 使用 mysql 數據庫
-  
+
   - 從0實現登錄, 並使用 redis 存儲登錄信息
-  
+
   - 安全, 日誌記錄和日誌分析
 
 - 使用框架開發案例項目
-      
+
   - 分別使用 express 和 koa2
-  
+
   - 中間件機制
-  
+
   - 常用插件
-  
+
   - 中間件原理
 
 - 線上環境
 
   - PM2 介紹和配置
-  
+
   - PM2 多進程模型
-  
+
   - 關於服務器運維
 
 ## 講授方式
@@ -288,7 +288,7 @@ module.exports = add
 ```
 
 ``` js b.js
-const add = require('./a') 
+const add = require('./a')
 const sum = add(10, 20)
 console.log(sum)
 ```
@@ -314,7 +314,7 @@ module.exports = {
 ```
 
 ``` js b.js
-const { add, mul } = require('./a') 
+const { add, mul } = require('./a')
 const sum = add(10, 20)
 const result = mul(100, 200)
 
@@ -358,13 +358,13 @@ Wrote to /home/ray/Projects/nodejs/Nodejs從零開發WebServer博客項目/commo
 }
 ```
 
-安裝 lodash 
+安裝 lodash
 
 ``` bash
 $ npm i lodash --save
 ```
 
- 原使用淘寶鏡像安裝, 現已改名為 https://npmmirror.com/ 
+ 原使用淘寶鏡像安裝, 現已改名為 https://npmmirror.com/
 
 ``` bash
 $ npm i lodash --save --registry=https://registry.npm.taobao.org
@@ -443,3 +443,65 @@ server.listen(3000, ()=> {
     console.log('listening on port 3000')
 })
 ```
+
+# 2.5 nodejs 介绍 | server端和前端的区别
+
+## server開發和前端開發的區別
+
+![前後端開發的區別](./2-5-front-back-end.png)
+
+- 服務穩定性
+
+- 考慮內存和CPU(優化,擴展)
+
+- 日誌記錄
+
+- 安全
+
+- 集群和服務拆分
+
+### 服務穩定性
+
+- Server端可能會遭受各種惡意攻擊和誤操作
+
+- 單個客戶端可以意外掛掉,但是服務端不能
+
+- 課程後面會講解使用 PM2 做進程守候
+
+### 考慮內存和CPU(優化,擴展)
+
+- 客戶端獨占一個瀏覽器, 內存和CPU都不是問題
+
+- Server端要承載很多請求, CPU和內存都是稀缺資源
+
+- 課程後面會講解使用 stream 寫日誌, 使用 redis 存 session
+
+### 日誌記錄
+
+- 前端也會參與寫日誌,但只是日誌的發起方,不關心後續
+
+- Server端要記錄日誌, 存儲日誌, 分析日誌, 前端不關心
+
+- 課程後面會講解多種日誌記錄方式, 以及如何分析日誌
+
+### 安全
+
+- Server端要隨時準備接收各種惡意攻擊, 前端則少很多
+
+- 如: 越權操作, 數據庫攻擊等
+
+- 課程後面會講解登錄驗證, 預防 xss 攻擊和 sql 注入
+
+### 集群和服務拆分
+
+- 產品發展速度快, 流量可能會迅速增加
+
+- 如何通過擴展機器和服務拆分來承載大流量?
+
+- 本課程雖然是單機器開發, 但是從設計上支持服務拆分
+
+### 總結
+
+- 本節列出的幾點區別
+
+- 將如何在 nodejs 中解決
