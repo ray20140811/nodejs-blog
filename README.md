@@ -606,3 +606,29 @@ server.listen(3000, ()=> {
 - 細節看不懂, 可以不用深究, 繼續往下看
 
 - 但是要明白 "存儲" 和 "接口" 的概念和用途
+
+# 4.1 开发博客项目之接口 | http 概述
+
+## 開發接口(不用任何框架)
+
+- nodejs 處理 http 請求
+
+- 搭發開發環境
+
+- 開發接口(暫不連接數據庫, 暫不考慮登錄)
+
+## http 請求概述
+
+- DNS 解析, 建立 TCP 連接, 發送 http 請求
+
+- server 接收到 http 請求, 處理, 並返回
+
+- 客戶端接收到返回數據, 處理數據(如渲染頁面, 執行js)
+
+## 實例演示
+
+![dns-http-request-response](./asset/4-1-dns-http-request-response.png)
+
+瀏覽器輸入 `https://www.baidu.com/` ,經過 `dns` 域名解析,得到對應的IP地址 `119.75.217.26:443` , 進行 TCP 連接(3次握手),之後發送 http 請求, 服務器端接收請求,處理並返回   `Response` , 其中 `content-type: text/html` 表示返回一個html, 客戶端接收返回數據, 進行渲染頁面等.
+
+
