@@ -505,3 +505,53 @@ server.listen(3000, ()=> {
 - 本節列出的幾點區別
 
 - 將如何在 nodejs 中解決
+
+# 2.6 nodejs 介绍 | 总结
+
+- nodejs 下載安裝, 兩種方式
+- nodejs和前端 javascript 的區別, commonjs 和 debugger
+- server 開發和前端開發的區別, 重點在於切換思路
+
+# 3.1 项目介绍 | 项目需求分析
+
+## 博客項目介紹
+
+- 目標
+
+- 需求
+
+- 技術方案
+
+## 目標
+
+- 開發一個博客系統, 具有博客的基本功能
+
+- 只開發 server 端, 不關心前端
+
+## 需求
+
+- 首頁, 作者主頁, 博客詳情頁
+
+![index](./asset/3-1-index.png)
+
+![author](./asset/3-1-author.png)
+
+![detail](./asset/3-1-detail.png)
+
+- 登錄頁
+
+![login](./asset/3-1-login.png)
+
+- 管理中心, 新建頁, 編輯頁
+
+![management](./asset/3-1-management.png)
+
+![edit](./asset/3-1-edit.png)
+
+## 技術方案
+
+## 總結
+
+- 需求一定要明確, 需求指導開發
+
+- 不要糾結於簡單的頁面樣式, 並不影響 server 端的複雜度
