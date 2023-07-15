@@ -555,3 +555,52 @@ server.listen(3000, ()=> {
 - 需求一定要明確, 需求指導開發
 
 - 不要糾結於簡單的頁面樣式, 並不影響 server 端的複雜度
+
+# 3.2 项目介绍 | 技术方案
+
+## 技術方案
+
+- 數據如何存儲
+
+- 如何與前端對接, 即接口設計
+
+## 數據存儲
+
+- 博客
+
+- 用戶
+
+## 存儲博客
+
+| id | title | content | createtime    | author   |
+| 1  | 標題1 | 內容1   | 1542512972176 | zhangsan |
+| 2  | 標題2 | 內容2   | 1542512972662 | lisi     |
+
+## 存儲用戶
+
+| id | username | password | realname |
+| 1  | zhangsan | 123      | 張三     |
+| 2  | lisi     | 123      | 李四     |
+
+## 接口設計
+
+| 描述               | 接口             | 方法 | url參數                        | 備註                           |
+|:--: |:--: |:--:|:--:|:--:|
+| 獲取博客列表       | /api/blog/list   | get  | author作者, keyword 搜索關鍵字 | 參數為空的話, 則不進行查詢過濾 |
+| 獲取一篇博客的內容 | /api/blog/detail | get  | id  　| 
+| 新增一篇博客       | /api/blog/new    | post |                                | post 中有新增的信息            |
+| 更新一篇博客       | /api/blog/update    | post |                                | postData 中有更新的內容            |
+| 刪除一篇博客       | /api/blog/delete    | post |                                |             |
+| 登錄 | /api/user/login | post | | postData 中有用戶名和密碼 |
+
+## 登錄
+
+- 業界有統一的解決方案, 一般不用再重新設計
+
+- 實現起來比較複雜, 課程後面會講解
+
+## 總結
+
+- 細節看不懂, 可以不用深究, 繼續往下看
+
+- 但是要明白 "存儲" 和 "接口" 的概念和用途
