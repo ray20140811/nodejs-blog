@@ -573,19 +573,21 @@ server.listen(3000, ()=> {
 ## 存儲博客
 
 | id | title | content | createtime    | author   |
+|----|------|---------|---------------| ---|
 | 1  | 標題1 | 內容1   | 1542512972176 | zhangsan |
 | 2  | 標題2 | 內容2   | 1542512972662 | lisi     |
 
 ## 存儲用戶
 
 | id | username | password | realname |
+|----|------|---------|---------------|
 | 1  | zhangsan | 123      | 張三     |
 | 2  | lisi     | 123      | 李四     |
 
 ## 接口設計
 
 | 描述               | 接口             | 方法 | url參數                        | 備註                           |
-|:--: |:--: |:--:|:--:|:--:|
+|--- |--- |--- | -- |-- |
 | 獲取博客列表       | /api/blog/list   | get  | author作者, keyword 搜索關鍵字 | 參數為空的話, 則不進行查詢過濾 |
 | 獲取一篇博客的內容 | /api/blog/detail | get  | id  　| 
 | 新增一篇博客       | /api/blog/new    | post |                                | post 中有新增的信息            |
