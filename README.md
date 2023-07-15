@@ -631,4 +631,77 @@ server.listen(3000, ()=> {
 
 瀏覽器輸入 `https://www.baidu.com/` ,經過 `dns` 域名解析,得到對應的IP地址 `119.75.217.26:443` , 進行 TCP 連接(3次握手),之後發送 http 請求, 服務器端接收請求,處理並返回   `Response` , 其中 `content-type: text/html` 表示返回一個html, 客戶端接收返回數據, 進行渲染頁面等.
 
+# 4.2 开发博客项目之接口 | 处理get请求
+
+## nodejs 處理 http 請求
+
+- get 請求和 querystring
+
+- post 請求和 postdata
+
+- 路由
+
+## 簡單示例
+
+``` js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.end('hello world');
+});
+server.listen(8000);
+
+// 然後瀏覽器訪問 http://localhost:8000/
+```
+
+## nodejs 處理 get 請求
+
+- get 請求, 即客戶端要向 server 端獲取數據, 如查詢博客列表
+
+- 通過 querystring 來傳遞數據, 如 a.html?a=100&b=200
+
+- 瀏覽器直接訪問, 就發送 get 請求
+
+``` js
+const http = require('http');
+const querystring = require('querystring');
+
+const server = http.createServer((req, res) => {
+  console.log(req.method) // GET
+  const url = req.url     // 獲取請求的完整 url
+  req.query = querystring.parse(url.split('?')[1])   //解析 querystring
+  res.end(JSON.stringify(req.query)) // 將 querystring 返回
+})
+server.listen(8000);
+```
+
+``` bash
+$ node app.js
+
+OK
+```
+
+瀏覽器輸入 `http://localhost:8000` , 瀏覽器上顯示 `{ }`
+
+``` bash
+method:  GET
+url:  /
+query:  [Object: null prototype] {}
+```
+
+瀏覽器輸入 `http://localhost:8000/api/blog/list`, 瀏覽器上顯示 `{ }`
+
+``` bash
+method:  GET
+url:  /api/blog/list
+query:  [Object: null prototype] {}
+```
+
+瀏覽器輸入 `http://localhost:8000/api/blog/list?author=zhangshan&keyword=A`, 瀏覽器上顯示 `{"author":"zhangshan","keyword":"A"}`
+
+``` bash
+method:  GET
+url:  /api/blog/list?author=zhangshan&keyword=A
+query:  [Object: null prototype] { author: 'zhangshan', keyword: 'A' }
+```
 
