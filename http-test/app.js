@@ -26,10 +26,48 @@ const querystring = require('querystring');
 //     }
 // })
 
+// const server = http.createServer((req, res) => {
+//     const url = req.url
+//     const path = url.split('?')[0]
+//     res.end(path)   //返回路由
+// });
+
 const server = http.createServer((req, res) => {
+    const method = req.method
     const url = req.url
     const path = url.split('?')[0]
-    res.end(path)   //返回路由
+    const query = querystring.parse(url.split('?')[1])
+
+    // 設置返回格式為 JSON
+    res.setHeader('Content-type', 'application/json')
+    
+    // 返回的數據
+    const resData = {
+        method,
+        url,
+        path,
+        query
+    }
+
+    // 返回
+    if (method === 'GET') {
+        res.end(
+            JSON.stringify(resData)
+        )
+    }
+    if (method === 'POST') {
+        let postData = ''
+        req.on('data', chunk => {
+            postData += chunk.toString()
+        })
+        req.on('end', () => {
+            resData.postData = postData
+            // 返回
+            res.end(
+                JSON.stringify(resData)
+            )
+        })
+    }
 });
 
 server.listen(8000);
