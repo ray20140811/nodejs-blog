@@ -589,7 +589,7 @@ server.listen(3000, ()=> {
 | 描述               | 接口             | 方法 | url參數                        | 備註                           |
 |--- |--- |--- | -- |-- |
 | 獲取博客列表       | /api/blog/list   | get  | author作者, keyword 搜索關鍵字 | 參數為空的話, 則不進行查詢過濾 |
-| 獲取一篇博客的內容 | /api/blog/detail | get  | id  　| 
+| 獲取一篇博客的內容 | /api/blog/detail | get  | id  　|
 | 新增一篇博客       | /api/blog/new    | post |                                | post 中有新增的信息            |
 | 更新一篇博客       | /api/blog/update    | post |                                | postData 中有更新的內容            |
 | 刪除一篇博客       | /api/blog/delete    | post |                                |             |
@@ -764,7 +764,7 @@ curl -X POST -H "Content-Type: application/json" http://localhost:8000
 ``` bash
 $ node app.js
 req content-type:  application/json
-postData:  
+postData:
 ```
 
 ### 使用 postman 發送post請求,並指定json內容
@@ -812,3 +812,156 @@ const server = http.createServer((req, res) => {
 });
 server.listen(8000);
 ```
+
+# 4.4 开发博客项目之接口 | 处理http请求的综合示例
+
+## 综合示例
+
+app.js
+
+``` js
+const http = require('http');
+const querystring = require('querystring');
+
+const server = http.createServer((req, res) => {
+    const method = req.method
+    const url = req.url
+    const path = url.split('?')[0]
+    const query = querystring.parse(url.split('?')[1])
+
+    // 設置返回格式為 JSON
+    res.setHeader('Content-type', 'application/json')
+
+    // 返回的數據
+    const resData = {
+        method,
+        url,
+        path,
+        query
+    }
+
+    // 返回
+    if (method === 'GET') {
+        res.end(
+            JSON.stringify(resData)
+        )
+    }
+    if (method === 'POST') {
+        let postData = ''
+        req.on('data', chunk => {
+            postData += chunk.toString()
+        })
+        req.on('end', () => {
+            resData.postData = postData
+            // 返回
+            res.end(
+                JSON.stringify(resData)
+            )
+        })
+    }
+});
+
+server.listen(8000);
+console.log('OK')
+```
+
+運行程序
+
+``` bash
+$ node app.js
+```
+get 請求
+
+![get](./asset/4-4-get.png)
+
+post 請求
+
+``` bash
+$ curl -X POST -H "Content-Type: application/json" http://localhost:8000/api/blog/update?id=1 -d '{"title":"博客標題", "contet":"博客}內容A}'
+```
+
+![post](./asset/4-4-post.png)
+
+# 4.5 开发博客项目之接口 | 搭建开发环境
+
+## 搭建開發環境
+
+- 從0開始搭建, 不使用任何框架
+
+- 使用 nodemon 監測文件變化, 自動重啟 node
+
+- 使用 cross-env 設置環境變量, 兼容 mac, linux 和 windows
+
+## 開始搭建
+
+``` bash
+$ mkdir blog-1
+$ cd blog-1
+$ npm init -y
+```
+
+安裝package
+
+```
+$ npm install cross-env --save-dev
+$ npm install nodemon --save-dev
+```
+
+設定package.json
+
+``` json
+{
+  "name": "blog-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/www.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.0.1"
+  }
+}
+```
+
+創建 bin\www.js
+
+``` js
+const http = require('http')
+
+const PORT = 8000
+const serverHandle = require('../app')
+
+const server = http.createServer(serverHandle)
+server.listen(PORT)
+```
+
+創建 app.js
+
+``` js
+const serverHandle = (req, res) => {
+    // 設置返回格式 JSON
+    res.setHeader('Content-type', 'application/json')
+
+    const resData = {
+        name: '雙越100',
+        site: 'imooc',
+        env: process.evn.NODE_ENV
+    }
+
+    res.end(
+        JSON.stringify(resData)
+    )
+}
+
+module.exports = serverHandle
+```
+
+
+
