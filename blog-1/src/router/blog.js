@@ -1,4 +1,4 @@
-const { getList } = require('../controller/blog')
+const { getList, getDetail } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleBlogRouter = (req, res) => {
@@ -13,15 +13,15 @@ const handleBlogRouter = (req, res) => {
         // }
         const author = req.query.author || ''
         const keyword = req.query.keyword || ''
-        const listData = getList(author, keyword)
-        return new SuccessModel(listData)
+        const data = getList(author, keyword)
+        return new SuccessModel(data)
     }
 
     // 獲取博客詳情
     if(method === 'GET' && req.path === '/api/blog/detail') {
-        return {
-            msg: '這是獲取博客詳情的接口'
-        }
+        const id = req.query.id 
+        const detailData = getDetail(id)
+        return new SuccessModel(detailData)
     }
 
     // 新建一篇博客
