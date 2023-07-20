@@ -29,7 +29,17 @@ const getDetail = (id) => {
     }
 }
 
+const newBlog = (blogData = {}) => {
+    // blogData 是一個博客對象, 包含 title, content 屬性
+    console.log('newBlog blogData... ',blogData)
+
+    return {
+        id: 3   // 表示新建博客, 插入到數據表裡面的 id
+    } 
+}
+
 module.exports = { 
     getList,
-    getDetail 
+    getDetail,
+    newBlog 
 }
