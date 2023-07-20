@@ -1,4 +1,4 @@
-const { getList, getDetail, newBlog, updateBlog } = require('../controller/blog')
+const { getList, getDetail, newBlog, updateBlog, delBlog } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleBlogRouter = (req, res) => {
@@ -50,8 +50,14 @@ const handleBlogRouter = (req, res) => {
 
     // 刪除一篇博客
     if(method === 'POST' && req.path === '/api/blog/delete') {
-        return {
-            msg: '這是刪除博客的接口'
+        // return {
+        //     msg: '這是刪除博客的接口'
+        // }
+        const result = delBlog(id)
+        if (result) {
+            return new SuccessModel()
+        } else {
+            return new ErrorModel('刪除博客失敗')
         }
     }
 }
