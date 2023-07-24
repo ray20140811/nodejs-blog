@@ -9,7 +9,7 @@ const con = mysql.createConnection({
     database: 'myblog'
 })
 
-// 開始連接
+// 開始鏈接
 con.connect()
 
 // 執行 sql 語句
